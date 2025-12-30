@@ -4,11 +4,12 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Pedido Pra Valer 💍</title>
+
   <style>
     body {
       margin: 0;
       padding: 0;
-      font-family: 'Arial', sans-serif;
+      font-family: Arial, sans-serif;
       display: flex;
       justify-content: center;
       align-items: center;
@@ -50,6 +51,7 @@
       justify-content: center;
       position: relative;
       margin-top: 30px;
+      height: 80px;
     }
 
     button {
@@ -76,7 +78,7 @@
 
     #noBtn {
       background: linear-gradient(to right, #ff4757, #ff3838);
-      color: white;
+      color: #fff;
       position: absolute;
       box-shadow: 0 0 15px #ff4757;
     }
@@ -133,22 +135,20 @@
     }
 
     .show {
-      opacity: 1 !important;
-    }
-
-    .hidden {
-      display: none;
+      opacity: 1;
     }
   </style>
 </head>
+
 <body>
 
   <div class="container">
     <h1>Maria, dona onça 🐆</h1>
-    <p>Aceita ser minha namorada e passar o resto da vida comigo?<br>
-       Não prometo ser perfeito, mas prometo ser verdadeiro e o melhor que conseguir.<br>
-       </p>
-    
+    <p>
+      Aceita ser minha namorada e passar o resto da vida comigo?<br>
+      Não prometo ser perfeito, mas prometo ser verdadeiro e dar o meu melhor.
+    </p>
+
     <div class="buttons">
       <button id="yesBtn">CLARO QUE SIM! 💍</button>
       <button id="noBtn">Nem a pau 😅</button>
@@ -163,16 +163,18 @@
     const result = document.getElementById('result');
     const container = document.querySelector('.container');
 
-    // EXATAMENTE A MESMA FUNÇÃO DO PIX
+    // Função que move o botão "Não"
     function moveButton() {
       const x = Math.random() * (window.innerWidth - noBtn.offsetWidth);
       const y = Math.random() * (window.innerHeight - noBtn.offsetHeight);
+
       noBtn.style.left = `${x}px`;
       noBtn.style.top = `${y}px`;
     }
 
-    // EXATAMENTE OS MESMOS EVENTOS DO PIX
+    // Eventos corretos: mouse, clique e toque
     noBtn.addEventListener('mouseover', moveButton);
+    noBtn.addEventListener('mousedown', moveButton);
     noBtn.addEventListener('touchstart', (e) => {
       e.preventDefault();
       moveButton();
@@ -180,15 +182,16 @@
 
     yesBtn.addEventListener('click', () => {
       container.innerHTML = `
-        <h1>ISSO AI MARIA!</h1>
+        <h1>ISSO AÍ, MARIA!</h1>
         <p style="font-size: 1.8rem; color: #00ff88;">
-          Você acabou de adquirir um homem obcecado por ti para sempre!<br>
-          Contrato assinado, agora não tem volta.<br>
+          Você acabou de adquirir um homem completamente obcecado por você.<br>
+          Contrato assinado. Não tem devolução.
         </p>
       `;
+
       result.classList.add('show');
-      
-      for(let i = 0; i < 80; i++) {
+
+      for (let i = 0; i < 80; i++) {
         setTimeout(createHeart, i * 70);
       }
     });
@@ -199,6 +202,7 @@
       heart.style.left = Math.random() * 100 + 'vw';
       heart.style.animationDuration = Math.random() * 4 + 3 + 's';
       document.body.appendChild(heart);
+
       setTimeout(() => heart.remove(), 7000);
     }
 
