@@ -3,87 +3,103 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>PIX do Amor 💸❤️</title>
+  <title>Pedido de Namoro para Maria 💌❤️</title>
   <style>
     body {
       margin: 0;
       padding: 0;
-      font-family: 'Comic Sans MS', cursive;
+      font-family: 'Comic Sans MS', cursive, sans-serif;
       display: flex;
       justify-content: center;
       align-items: center;
       height: 100vh;
-      background: radial-gradient(circle, #1f1f1f, #000000);
+      background: radial-gradient(circle, #ffcce6, #ff99cc);
       overflow: hidden;
       flex-direction: column;
       text-align: center;
     }
 
     h1 {
-      color: #ff4081;
-      font-size: 2rem;
+      color: #cc0066;
+      font-size: 2.5rem;
       margin-bottom: 10px;
-      text-shadow: 1px 1px 1px #000;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+      animation: pulse 1.5s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.05); }
     }
 
     p {
-      font-size: 1.2rem;
-      color: #eeeeee;
+      font-size: 1.3rem;
+      color: #660033;
       margin-bottom: 30px;
+      max-width: 80%;
     }
 
     .buttons {
       display: flex;
-      gap: 20px;
+      gap: 30px;
+      position: relative;
+      margin-top: 20px;
     }
 
     button {
-      padding: 15px 25px;
-      font-size: 1.2rem;
+      padding: 18px 35px;
+      font-size: 1.5rem;
       border: none;
-      border-radius: 30px;
+      border-radius: 50px;
       cursor: pointer;
-      transition: 0.3s;
+      transition: all 0.3s;
+      font-weight: bold;
+      box-shadow: 0 6px 12px rgba(0,0,0,0.2);
     }
 
-    #pixBtn {
-      background-color: #00c853;
+    #yesBtn {
+      background-color: #00cc66;
       color: white;
     }
 
+    #yesBtn:hover {
+      background-color: #00b359;
+      transform: scale(1.1);
+    }
+
     #noBtn {
-      background-color: #d50000;
+      background-color: #ff3333;
       color: white;
       position: absolute;
     }
 
     .heart {
       position: absolute;
-      width: 20px;
-      height: 20px;
-      background-color: #ff4081;
+      width: 25px;
+      height: 25px;
+      background-color: #ff3366;
       transform: rotate(45deg);
       animation: float 8s infinite ease-in-out;
-      opacity: 0.8;
+      opacity: 0.9;
     }
 
     .heart::before,
     .heart::after {
       content: '';
       position: absolute;
-      width: 20px;
-      height: 20px;
-      background-color: #ff4081;
+      width: 25px;
+      height: 25px;
+      background-color: #ff3366;
       border-radius: 50%;
     }
 
     .heart::before {
-      top: -10px;
+      top: -12px;
       left: 0;
     }
 
     .heart::after {
-      left: -10px;
+      left: -12px;
       top: 0;
     }
 
@@ -97,28 +113,75 @@
         opacity: 0;
       }
     }
+
+    .message {
+      background: white;
+      padding: 20px;
+      border-radius: 20px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+      margin-bottom: 30px;
+      max-width: 600px;
+      border: 5px dashed #ff6699;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    #celebration {
+      font-size: 3rem;
+      color: #ff0066;
+      margin-top: 30px;
+      animation: bounce 1s infinite;
+    }
+
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-20px); }
+    }
   </style>
 </head>
 <body>
 
-  <h1>Me faz feliz com um PIX? 😏</h1>
-  <p>Chave PIX: <strong id="pixKey">artemissilva93@gmail.com</strong></p>
+  <div class="message">
+    <h1>Maria, quer namorar comigo? 💖</h1>
+    <p>Eu sei que sou meio desajeitado, mas meu coração já é seu faz tempo!<br>
+       Aceita ser minha namorada? Prometo muitos sorrisos, abraços e memes ruins! 😄</p>
+  </div>
 
   <div class="buttons">
-    <button id="pixBtn">Fazer PIX agora 💸</button>
-    <button id="noBtn">Não vou enviar 😒</button>
+    <button id="yesBtn">SIM! 💑</button>
+    <button id="noBtn">Não 😅</button>
   </div>
+
+  <div id="celebration" class="hidden">🎉 ELA DISSE SIM! 🎉<br>AGORA SOMOS OFICIAL! 💘</div>
 
   <script>
     const noBtn = document.getElementById('noBtn');
-    const pixBtn = document.getElementById('pixBtn');
-    const pixKey = document.getElementById('pixKey').innerText;
+    const yesBtn = document.getElementById('yesBtn');
+    const celebration = document.getElementById('celebration');
+    const message = document.querySelector('.message');
+    const buttons = document.querySelector('.buttons');
+
+    const funnyMessages = [
+      "Tem certeza? 🥺",
+      "Pensa bem! ☺️",
+      "Olha os corações voando! 💘",
+      "Vou ficar triste... 😢",
+      "Última chance! 😏",
+      "Clica no SIM, vai! 😄",
+      "Maria, para de fugir! 🏃‍♀️💨"
+    ];
+    let msgIndex = 0;
 
     function moveButton() {
-      const x = Math.random() * (window.innerWidth - noBtn.offsetWidth);
-      const y = Math.random() * (window.innerHeight - noBtn.offsetHeight);
+      const x = Math.random() * (window.innerWidth - noBtn.offsetWidth - 100);
+      const y = Math.random() * (window.innerHeight - noBtn.offsetHeight - 100);
       noBtn.style.left = `${x}px`;
       noBtn.style.top = `${y}px`;
+
+      noBtn.textContent = funnyMessages[msgIndex];
+      msgIndex = (msgIndex + 1) % funnyMessages.length;
     }
 
     noBtn.addEventListener('mouseover', moveButton);
@@ -127,9 +190,14 @@
       moveButton();
     });
 
-    pixBtn.addEventListener('click', () => {
-      navigator.clipboard.writeText(pixKey);
-      alert("Chave PIX copiada! Vai lá me deixar feliz 😏💸");
+    yesBtn.addEventListener('click', () => {
+      message.innerHTML = `<h1>💕 MARIA, VOCÊ É INCRÍVEL! 💕</h1><p>Você acabou de fazer o cara mais feliz do mundo!<br>Agora é oficial: estamos namorando! 🥰</p>`;
+      buttons.style.display = 'none';
+      celebration.classList.remove('hidden');
+
+      for(let i = 0; i < 50; i++) {
+        setTimeout(createHeart, i * 100);
+      }
     });
 
     function createHeart() {
@@ -141,7 +209,7 @@
       setTimeout(() => heart.remove(), 8000);
     }
 
-    setInterval(createHeart, 400);
+    setInterval(createHeart, 300);
   </script>
 
 </body>
